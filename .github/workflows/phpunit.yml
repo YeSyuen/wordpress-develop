@@ -9,12 +9,6 @@ on:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: wordpress_develop
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,14 +25,6 @@ jobs:
         run: cp wp-config-sample.php wp-config.php
       - name: copy
         run: cp wp-tests-config-sample.php wp-tests-config.php
-
-      - name:
-        run: |
-          sed -i 's/your_db_host/mysql/' wp-tests-config.php
-          sed -i 's/your_db_name/test_database/' wp-tests-config.php
-          sed -i 's/your_db_user/root/' wp-tests-config.php
-          sed -i 's/your_db_password/root_password/' wp-tests-config.php
-
 
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit
