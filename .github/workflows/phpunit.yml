@@ -26,5 +26,7 @@ jobs:
       - name: copy
         run: cp wp-tests-config-sample.php wp-tests-config.php
 
+      - name: Test MySQL Connection
+        run: mysql -h mysql -u root -proot_password -e "SELECT 1"
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit
