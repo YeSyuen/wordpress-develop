@@ -34,10 +34,11 @@ jobs:
 
       - name: Configure PHPUnit for MySQL
         run: |
-          sed -i 's/DB_HOST', 'localhost'/DB_HOST', '127.0.0.1'/g wp-tests-config.php
-          sed -i 's/DB_USER', 'root'/DB_USER', 'root'/g wp-tests-config.php
-          sed -i 's/DB_PASSWORD', ''/DB_PASSWORD', 'root_password'/g wp-tests-config.php
-          sed -i 's/DB_NAME', 'database_name_here'/DB_NAME', 'your_database_name'/g wp-tests-config.php
+          sed -i 's/DB_HOST, '\''localhost'\''/DB_HOST, '\''127.0.0.1'\''/g' wp-tests-config.php
+          sed -i 's/DB_USER, '\''root'\''/DB_USER, '\''root'\''/g' wp-tests-config.php
+          sed -i 's/DB_PASSWORD, '\'''\''/DB_PASSWORD, '\''root_password'\''/g' wp-tests-config.php
+          sed -i 's/DB_NAME, '\''database_name_here'\''/DB_NAME, '\''your_database_name'\''/g' wp-tests-config.php
+
 
       - name: Start MySQL Service
         run: sudo service mysql start
