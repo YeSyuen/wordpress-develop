@@ -22,5 +22,11 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+    - name: Create wp-config file
+      run: cp wp-config-sample.php wp-config.php
+
+    - name: Create wp-test-config file
+      run: cp wp-tests-config-sample.php wp-tests-config.php
+
     - name: Run PHPUnit tests
       run: phpunit
