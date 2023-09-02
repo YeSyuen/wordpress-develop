@@ -9,6 +9,12 @@ on:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: wordpress_develop
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -26,12 +32,18 @@ jobs:
       - name: copy
         run: cp wp-tests-config-sample.php wp-tests-config.php
 
-      - name: Check MySQL Service Status
-        run: sudo service mysql status
-      - name: Check MySQL Docker Container Status
-        run: docker ps -a | grep mysql
-      - name: Test MySQL Connection (Verbose)
-        run: mysql -h 127.0.0.1 -u root -proot_password -e "SELECT 1" -v
+      - name: Configure PHPUnit for MySQL
+        run: |
+          sed -i 's/DB_HOST', 'localhost'/DB_HOST', '127.0.0.1'/g wp-tests-config.php
+          sed -i 's/DB_USER', 'root'/DB_USER', 'root'/g wp-tests-config.php
+          sed -i 's/DB_PASSWORD', ''/DB_PASSWORD', 'root_password'/g wp-tests-config.php
+          sed -i 's/DB_NAME', 'database_name_here'/DB_NAME', 'your_database_name'/g wp-tests-config.php
+
+      - name: Start MySQL Service
+        run: sudo service mysql start
+
+      - name: Test MySQL Connection
+        run: mysql -h 127.0.0.1 -u root -proot_password -e "SELECT 1"
 
 
       - name: Run PHPUnit tests
