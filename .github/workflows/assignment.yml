@@ -1,10 +1,6 @@
 name: Build CI
 
-on:
-  push:
-    branches: [ "trunk" ]
-  pull_request:
-    branches: [ "trunk" ]
+on: [push]
 
 jobs:
   build:
