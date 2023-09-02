@@ -29,10 +29,10 @@ jobs:
         with:
           node-version: '12'
 
-      - run: npm install @emotion/is-prop-valid
-
       - name: Install Grunt
-        run: npm install -g grunt-cli
+        run: |
+          npm cache clean --force
+          npm install -g grunt-cli
 
       - name: Install npm Dependencies
         run: npm ci
