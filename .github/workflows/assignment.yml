@@ -16,5 +16,5 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          cd path/to/wordpress-develop
-          docker build YeSyuen/wordpress-develop -t nginx:alpine
+          cd YeSyuen/wordpress-develop
+          docker build -t nginx:alpine
