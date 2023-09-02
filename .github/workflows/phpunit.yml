@@ -22,5 +22,10 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
+      - name: copy
+        run: cp wp-config-sample.php wp-config.php
+      - name: copy
+        run: cp wp-tests-config-sample.php wp-tests-config.php
+
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit
