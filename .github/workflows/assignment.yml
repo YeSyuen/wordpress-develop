@@ -27,6 +27,7 @@ jobs:
 
     - name: Create wp-test-config file
       run: cp wp-tests-config-sample.php wp-tests-config.php
-
+    - name: update composer
+      run: composer update -W
     - name: Run PHPUnit tests
       run: phpunit
